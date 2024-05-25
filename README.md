@@ -41,3 +41,9 @@ Total price : $19.02
 You saved $3.45 today.
 
 ```
+
+### How To Run
+
+```
+$ ruby price_calculator.rb
+```
