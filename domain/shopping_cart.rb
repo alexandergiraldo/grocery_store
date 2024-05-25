@@ -1,5 +1,11 @@
+class InvalidItemError < StandardError
+end
+
+class NoItemsError < StandardError
+end
+
 class ShoppingCart
-  attr_reader :items
+  attr_reader :items, :products
 
   def initialize(items = [], products)
     @items = items
@@ -20,20 +26,17 @@ class ShoppingCart
         invalids << item
       end
     end
-    unless invalids.empty?
-      puts "Invalid items: #{invalids.join(', ')}"
-    end
+
+    raise InvalidItemError, "Invalid item(s): #{invalids.join(', ')}" unless invalids.empty?
   end
 
   def sanitize_items
-    if @items.nil? || @items.empty?
-      puts 'No items entered'
-      return
-    end
+    raise NoItemsError, "No items in cart" if @items.nil? || @items.empty?
+
     @items = items.split(',').compact
   end
 
   def format_items
-    @items = @items.group_by(&:itself).map { |k, v| {"#{k}" => v.count} }
+    @items = @items.group_by(&:itself).transform_values { |item| item.count }
   end
 end
