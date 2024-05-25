@@ -23,9 +23,11 @@ begin
   shoping_cart = ShoppingCart.new(items, products)
   shoping_cart.create_cart
 
-  # Perform checkout and display total
+  # Perform checkout
   checkout = Checkout.new(shoping_cart, product_sales)
   checkout.process
+
+  # Print receipt
   receipt = PrintReceipt.new(checkout.total, checkout.savings, checkout.items)
   receipt.print
 rescue InvalidItemError, NoItemsError => e
