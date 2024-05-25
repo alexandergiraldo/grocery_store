@@ -33,7 +33,7 @@ class ShoppingCart
   def sanitize_items
     raise NoItemsError, "No items in cart" if @items.nil? || @items.empty?
 
-    @items = items.split(',').compact
+    @items = items.split(',').compact.map(&:strip)
   end
 
   def format_items

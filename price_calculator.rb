@@ -33,7 +33,7 @@ begin
   # Perform checkout and display total
   checkout = Checkout.new(shoping_cart, product_sales)
   checkout.process
-  receipt = PrintReceipt.new(checkout.total, checkout.items)
+  receipt = PrintReceipt.new(checkout.total, checkout.savings, checkout.items)
   receipt.print
 rescue InvalidItemError, NoItemsError => e
   puts e.message

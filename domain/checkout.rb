@@ -9,6 +9,7 @@ class Checkout
     @products = cart.products
     @cart = cart
     @total = 0
+    @savings = 0
     @items = []
   end
 
@@ -18,6 +19,10 @@ class Checkout
 
   def total
     to_currency(@total)
+  end
+
+  def savings
+    to_currency(@savings)
   end
 
   private
@@ -36,6 +41,7 @@ class Checkout
 
       if final_sale_price
         @total += final_sale_price
+        @savings += regular_price - final_sale_price
       else
         @total += regular_price
       end

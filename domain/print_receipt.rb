@@ -2,9 +2,10 @@ require_relative 'print'
 
 class PrintReceipt < Print
 
-  def initialize(total, items)
+  def initialize(total, savings, items)
     @total = total
     @items = items
+    @savings = savings
   end
 
   def print
@@ -31,5 +32,6 @@ class PrintReceipt < Print
   def totals
     puts ''
     puts "Total price : #{@total}"
+    puts "You saved #{@savings} today."
   end
 end
