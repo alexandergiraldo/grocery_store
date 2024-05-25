@@ -1,4 +1,5 @@
 class ProductSale
+  attr_reader :product, :quantity, :sale_price
 
   # pruduct: Product
   # quantity: int
