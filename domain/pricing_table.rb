@@ -1,9 +1,8 @@
-require_relative '../domain/utils'
+require_relative './utils'
+require_relative './print'
 
-class PricingTable
+class PricingTable < Print
   include Utils
-
-  COLUMN_WIDTH = 20
 
   # products: Array of Product
   # sales: Array of ProductSale
@@ -25,14 +24,6 @@ class PricingTable
     puts "Item".ljust(COLUMN_WIDTH/2) + "Unit Price".ljust(COLUMN_WIDTH) + "Sale Price".ljust(COLUMN_WIDTH)
   end
 
-  def division
-    length = COLUMN_WIDTH + (COLUMN_WIDTH * 2)
-    line   = ''
-
-    length.times { line += '-' }
-    puts line
-  end
-
   def items
     @products.each do |product|
       sale = @sales.find { |sale| sale.product == product }
@@ -41,10 +32,5 @@ class PricingTable
       sale_price_text = sale_price.empty? ? '' : "#{sale.quantity} for #{sale_price}"
       puts "#{product.name}".ljust(COLUMN_WIDTH/2) + "#{price}".ljust(COLUMN_WIDTH) + "#{sale_price_text}".ljust(COLUMN_WIDTH)
     end
-  end
-
-  def footer
-    puts ''
-    puts ''
   end
 end

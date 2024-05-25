@@ -1,15 +1,23 @@
+require_relative './utils'
+
 class Checkout
-  attr_reader :product_sales, :cart, :total
+  include Utils
+  attr_reader :product_sales, :cart, :items
 
   def initialize(cart, product_sales)
     @product_sales = product_sales
     @products = cart.products
     @cart = cart
     @total = 0
+    @items = []
   end
 
   def process
     calculate_totals
+  end
+
+  def total
+    to_currency(@total)
   end
 
   private
@@ -31,6 +39,8 @@ class Checkout
       else
         @total += regular_price
       end
+
+      @items << { product: product, quantity: quantity, price: to_currency(final_sale_price || regular_price) }
     end
   end
 end

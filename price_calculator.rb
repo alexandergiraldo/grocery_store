@@ -3,6 +3,7 @@ require_relative './domain/product_sale'
 require_relative './domain/pricing_table'
 require_relative './domain/shopping_cart'
 require_relative './domain/checkout'
+require_relative './domain/print_receipt'
 
 # Initialize table of products for this week
 milk = Product.new('Milk', 397)
@@ -32,7 +33,8 @@ begin
   # Perform checkout and display total
   checkout = Checkout.new(shoping_cart, product_sales)
   checkout.process
-  puts "Total: #{checkout.total}"
+  receipt = PrintReceipt.new(checkout.total, checkout.items)
+  receipt.print
 rescue InvalidItemError, NoItemsError => e
   puts e.message
 end
