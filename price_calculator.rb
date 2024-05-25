@@ -1,22 +1,15 @@
-require_relative './domain/product'
-require_relative './domain/product_sale'
 require_relative './domain/pricing_table'
 require_relative './domain/shopping_cart'
 require_relative './domain/checkout'
 require_relative './domain/print_receipt'
+require_relative './domain/product_factory'
 
 # Initialize table of products for this week
-milk = Product.new('Milk', 397)
-bread = Product.new('Bread', 217)
-banana = Product.new('Banana', 99)
-apple = Product.new('Apple', 89)
+factory = ProductFactory.new
+factory.create
 
-# Initialize sale prices for this week
-milk_sale = ProductSale.new(milk, 2, 500)
-bread_sale = ProductSale.new(bread, 3, 600)
-
-products = [milk, bread, banana, apple]
-product_sales = [milk_sale, bread_sale]
+products = factory.products
+product_sales = factory.product_sales
 
 # Display products and sale prices of the week
 PricingTable.new(products, product_sales).print
