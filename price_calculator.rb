@@ -1,7 +1,8 @@
 require_relative './domain/product'
 require_relative './domain/product_sale'
-require_relative './services/pricing_table'
+require_relative './domain/pricing_table'
 require_relative './domain/shopping_cart'
+require_relative './domain/checkout'
 
 # Initialize table of products for this week
 milk = Product.new('Milk', 397)
@@ -23,5 +24,15 @@ PricingTable.new(products, product_sales).print
 puts 'Please enter all the items purchased separated by a comma'
 items = gets.chomp.strip
 
-# Create shopping cart
-ShoppingCart.new(items, products).create_cart
+begin
+  # Create shopping cart
+  shoping_cart = ShoppingCart.new(items, products)
+  shoping_cart.create_cart
+
+  # Perform checkout and display total
+  checkout = Checkout.new(shoping_cart, product_sales)
+  checkout.process
+  puts "Total: #{checkout.total}"
+rescue InvalidItemError, NoItemsError => e
+  puts e.message
+end
