@@ -3,7 +3,7 @@ class Print
 
   def division
     length = COLUMN_WIDTH + (COLUMN_WIDTH * 2)
-    line   = ''
+    line = ''
 
     length.times { line += '-' }
     puts line
